@@ -1,0 +1,10 @@
+ale1.c:::0
+seq1.c:12.5:156.25:1
+seq2.c:10 25:125:1
+dec1.c:6:par; mult. 3 ou 7:1
+dec2.c:1024 101 300:1 ponto:1
+ite1.c:8:40320:1
+ite2.c:8 4:4096:1
+ger1.c:121:nao e primo:1
+ger2.c:496:e perfeito:1
+ger3.c:::0
