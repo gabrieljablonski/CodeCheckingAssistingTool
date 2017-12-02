@@ -85,7 +85,7 @@ def _compile(user, c_files_list):
     if user not in users_file_info:
         users_file_info[user] = [[], []]
     user_c_files = []
-    user_log = open(original_wd + "\\Compilados\\" + user + "\\%s_log.txt" % user, "w")
+    user_log = open(original_wd + "\\logs\\%s_log.txt" % user, "w")
     user_log.write("Compilando\n" + 60 * "-" + "\n")
     compile_buffer.append("--" + user + " iniciado.")
     for root, dirs, files in os.walk(os.path.join(original_wd, "Usuarios", user)):
@@ -99,7 +99,7 @@ def _compile(user, c_files_list):
                                                      os.path.join(root, name)], stdin=subprocess.PIPE,
                                                     stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                                                     creationflags=0x08000000)
-                    comp_response = comp_process.communicate()[1].decode('UTF-8')
+                    comp_response = comp_process.communicate()[1].decode('latin-1')
                     if comp_response is "":
                         compile_buffer.append("#%s: %s compilado com sucesso." % (user, name))
                         user_log.write("#%s compilado com sucesso.\n" % name)
@@ -108,7 +108,7 @@ def _compile(user, c_files_list):
                         compile_buffer.append("--Erro ao compilar " + name + ". Erro: \n\n" + comp_response + "\n\n")
                         user_log.write("\n--Erro ao compilar " + name + ". Erro: \n===============\n" + comp_response
                                        + "\n===============\n\n")
-                        pass
+
                     progress_count += 1
 
     user_log.write("\n")
@@ -148,7 +148,7 @@ def _run(run_list, user_list):
                         run_total += 1
 
     for user in user_list:
-        user_log = open(original_wd + '\\Compilados\\' + user + '\\%s_log.txt' % user, 'a')
+        user_log = open(original_wd + '\\logs\\%s_log.txt' % user, 'a')
         user_log.write("Rodando\n" + 60*'-' + '\n')
         for name in compiled_list[user]:
             if name[0:-4] in run_list:
@@ -647,6 +647,8 @@ class Ui_MainWindow(object):
     def compile_files(self):
         if self.listUsers.count() != 0 and self.listFiles.count() != 0:
             self.compile_timer.start()
+            if not os.path.exists(original_wd + "\\logs"):
+                os.mkdir(original_wd + "\\logs")
             users_to_compile = []
             for i in range(self.listUsers.count()):
                 users_to_compile.append(self.listUsers.item(i).text())
