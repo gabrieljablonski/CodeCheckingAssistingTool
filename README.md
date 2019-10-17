@@ -1,4 +1,4 @@
-# Code Checking Assisting Tool
+# Code Checking Tool
 
 Given a list of students' GitHub users and repository names, a list of .c files with inputs and expected outputs, this tool automates the process of cloning the repositories, compiling the files and running them with the given inputs.
 
